@@ -1,0 +1,13 @@
+@charset "UTF-8";
+
+@import "../bower_components/foundation/scss/normalize";
+
+// foundation
+@import "settings";
+@import "../bower_components/foundation/scss/foundation";
+
+// fontawesome
+@import "../bower_components/fontawesome/scss/font-awesome";
+
+// appstyles
+@import "appstyles"

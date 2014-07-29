@@ -1,0 +1,61 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width">
+
+    <link rel="stylesheet" href="styles/main.css">
+  </head>
+  <body ng-app="mnApp">
+    <top-bar>
+      <ul class="title-area">
+        <li class="name">
+          <h1><a href="#">movie nightmare</a></h1>
+        </li>
+        <li toggle-top-bar class="menu-icon"><a href="#">Menu</a></li>
+      </ul>
+      <top-bar-section>
+        <!-- Right Nav Section -->
+        <ul class="right">
+          <li class="active"><a href="#">Active</a></li>
+          <li has-dropdown>
+            <a href="#">Account</a>
+            <ul top-bar-dropdown>
+              <li><a href="#/login">Login</a></li>
+              <li><a href="#/profile">Profile</a></li>
+              <li><a href="/logout">Logout</a></li>
+            </ul>
+          </li>
+        </ul>
+        <!-- Left Nav Section -->
+        <ul class="left">
+          <li><a href="#">Left</a></li>
+        </ul>
+      </top-bar-section>
+    </top-bar>
+
+    <div ng-view=""></div>
+
+    <!-- bower:js -->
+    <script src="bower_components/modernizr/modernizr.js"></script>
+    <script src="bower_components/jquery/dist/jquery.js"></script>
+    <script src="bower_components/angular/angular.js"></script>
+    <script src="bower_components/angular-route/angular-route.js"></script>
+    <script src="bower_components/fastclick/lib/fastclick.js"></script>
+    <script src="bower_components/jquery.cookie/jquery.cookie.js"></script>
+    <script src="bower_components/jquery-placeholder/jquery.placeholder.js"></script>
+    <script src="bower_components/foundation/js/foundation.js"></script>
+    <script src="bower_components/angular-resource/angular-resource.js"></script>
+    <script src="bower_components/angular-foundation/mm-foundation-tpls.js"></script>
+    <!-- endbower -->
+    <script src="scripts/app.js"></script>
+    <script src="scripts/services/services.js"></script>
+    <script src="scripts/services/user.js"></script>
+    <script src="scripts/controllers/controllers.js"></script>
+    <script src="scripts/controllers/main.js"></script>
+    <script src="scripts/controllers/profile.js"></script>
+    <script src="scripts/controllers/login.js"></script>
+  </body>
+</html>
