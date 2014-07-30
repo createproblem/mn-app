@@ -1,17 +1,18 @@
 'use strict';
 
 var auth = function(req, res, next) {
-  if (!req.isAuthenticated())
+  if (!req.isAuthenticated()) {
     res.send(401);
-  else
+  } else {
     next();
+  }
 };
 
 var getQuery = function(url) {
   var urlParser = require('url');
   var urlParts = urlParser.parse(url, true);
   return urlParts.query;
-}
+};
 
 var tmdb = require('./tmdb');
 

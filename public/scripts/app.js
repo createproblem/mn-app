@@ -21,8 +21,9 @@ angular.module('mnApp', [
           return response;
         },
         function(response) {
-          if (response.status === 401)
+          if (response.status === 401) {
             $location.url('/login');
+          }
           return $q.reject(response);
         }
       );

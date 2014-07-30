@@ -1,3 +1,4 @@
+/* jshint camelcase: false */
 'use strict';
 
 module.exports = function(apiKey) {

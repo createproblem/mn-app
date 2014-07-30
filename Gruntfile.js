@@ -1,3 +1,4 @@
+/* jshint camelcase: false */
 'use strict';
 
 module.exports = function(grunt) {
@@ -178,7 +179,7 @@ module.exports = function(grunt) {
 
     watch: {
       scripts: {
-        files: ['server.js', 'app/**/*.js', 'config/**/*.js', 'public/**/*.js', '!public/bower_components/**/*.js'],
+        files: ['Gruntfile.js', 'server.js', 'app/**/*.js', 'config/**/*.js', 'public/**/*.js', '!public/bower_components/**/*.js'],
         tasks: ['jshint']
       },
       bower: {
