@@ -7,7 +7,25 @@ var auth = function(req, res, next) {
     next();
 };
 
+var getQuery = function(url) {
+  var urlParser = require('url');
+  var urlParts = urlParser.parse(url, true);
+  return urlParts.query;
+}
+
+var tmdb = require('./tmdb');
+
 module.exports = function(app, passport) {
+  // tmdb search
+  app.get('/movies/search-tmdb', function(req, res) {
+    var query = getQuery(req.url).query;
+    var a = new tmdb('xxx');
+    console.log(query);
+    a.search(query, function(body) {
+      res.send(body);
+    });
+  });
+
   // get the user profile
   app.get('/profile', auth, function(req, res) {
     res.json(req.user);

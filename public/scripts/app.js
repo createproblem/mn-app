@@ -11,6 +11,7 @@ angular.module('mnApp', [
     .when('/', { templateUrl: 'views/main.html', controller: 'MainCtrl' })
     .when('/profile', { templateUrl: 'views/profile.html', controller: 'ProfileCtrl' })
     .when('/login', { templateUrl: 'views/login.html', controller: 'LoginCtrl' })
+    .when('/movie/new', { templateUrl: 'views/movie-new.html', controller: 'MovieNewCtrl' })
   ;
 
   $httpProvider.responseInterceptors.push(function($q, $location) {

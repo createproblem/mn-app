@@ -1,0 +1,37 @@
+<div class="row">
+  <div class="small-12 columns">
+    <form name="movieNewForm" ng-submit="search(movieNewForm.$valid)" novalidate>
+      <div class="row">
+        <div class="large-offset-3 large-6 columns">
+          <div class="row collapse">
+            <div class="small-10 columns">
+              <input type="text" name="query" ng-model="query" placeholder="Movie title">
+            </div>
+            <div class="small-2 columns">
+              <button class="postfix">Search</button>
+            </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div class="row">
+  <div class="small-8 small-centered columns center">
+    <div class="row" ng-repeat="movie in movies">
+      <div class="small-5 medium-2 columns">
+        <img class="thumb" ng-src="http://image.tmdb.org/t/p/w185{{movie.poster_path}}">
+      </div>
+      <div class="small-7 columns">
+        <h4>
+          {{movie.title}} <small>({{movie.release_date | date:'yyyy'}})</small>
+        </h4>
+      </div>
+      <div class="small-2 columns">
+        <a class="button tiny secondary" ng-click="addMovie(movie)">
+          <i class="fa fa-save"></i>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
