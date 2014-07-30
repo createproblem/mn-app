@@ -6,7 +6,9 @@
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width">
 
+    <!-- build:css(.tmp) styles/main.css -->
     <link rel="stylesheet" href="styles/main.css">
+    <!-- endbuild -->
   </head>
   <body ng-app="mnApp">
     <top-bar>
@@ -38,6 +40,7 @@
 
     <div ng-view=""></div>
 
+    <!-- build:js(public) scripts/vendor.js -->
     <!-- bower:js -->
     <script src="bower_components/modernizr/modernizr.js"></script>
     <script src="bower_components/jquery/dist/jquery.js"></script>
@@ -50,6 +53,9 @@
     <script src="bower_components/angular-resource/angular-resource.js"></script>
     <script src="bower_components/angular-foundation/mm-foundation-tpls.js"></script>
     <!-- endbower -->
+    <!-- endbuild -->
+
+    <!-- build:js({.tmp,public}) scripts/scripts.js -->
     <script src="scripts/app.js"></script>
     <script src="scripts/services/services.js"></script>
     <script src="scripts/services/user.js"></script>
@@ -57,5 +63,8 @@
     <script src="scripts/controllers/main.js"></script>
     <script src="scripts/controllers/profile.js"></script>
     <script src="scripts/controllers/login.js"></script>
+    <!-- endbuild -->
+
+    <script> $(document).foundation(); </script>
   </body>
 </html>
