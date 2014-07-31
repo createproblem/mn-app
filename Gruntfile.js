@@ -90,6 +90,14 @@ module.exports = function(grunt) {
 
     // Copies remaining files to places other tasks can use
     copy: {
+      main: {
+        files: [{
+          expand: true,
+          cwd: 'config',
+          dest: '.tmp',
+          src: ['config.js.dist']
+        }]
+      },
       dist: {
         files: [{
           expand: true,
@@ -146,6 +154,15 @@ module.exports = function(grunt) {
             '<%= application.dist %>/{,*/}*',
             '!<%= application.dist %>/.git*'
           ]
+        }]
+      }
+    },
+
+    rename: {
+      main: {
+        files: [{
+          src: ['.tmp/config.js.dist'],
+          dest: 'config/config.js'
         }]
       }
     },
@@ -224,8 +241,9 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-filerev');
   grunt.loadNpmTasks('grunt-contrib-clean');
   grunt.loadNpmTasks('grunt-ngmin');
+  grunt.loadNpmTasks('grunt-contrib-rename');
 
   grunt.registerTask('default', ['compass', 'jshint', 'concurrent']);
-
+  grunt.registerTask('config', ['copy:main', 'rename:main']);
   grunt.registerTask('build', ['clean', 'useminPrepare', 'compass', 'concat', 'ngmin', 'copy', 'cssmin', 'uglify', 'filerev', 'usemin', 'htmlmin']);
 };

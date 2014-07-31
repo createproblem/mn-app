@@ -3,7 +3,7 @@
 var GithubStrategy = require('passport-github').Strategy;
 var User = require('../app/models/user');
 
-module.exports = function(passport) {
+module.exports = function(passport, config) {
   passport.serializeUser(function(user, done) {
     done(null, user.id);
   });
@@ -16,8 +16,8 @@ module.exports = function(passport) {
 
   // github
   passport.use(new GithubStrategy({
-    clientID: '781f1a06fc13f7195e0b',
-    clientSecret: 'cef37461dbe72a9c10698529a1f6bfc7dee9199c',
+    clientID: config.github.clientID,
+    clientSecret: config.github.clientSecret,
     callbackURL: '/auth/github/callback'
   }, function(token, refreshToken, profile, done) {
     // async
