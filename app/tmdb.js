@@ -1,37 +1,42 @@
 /* jshint camelcase: false */
 'use strict';
 
-module.exports = function(apiKey) {
-  var request = require('request');
-  var baseUrl = 'http://api.themoviedb.org/3';
-  var apiHeaders = {
+var tmdb = {};
+var request = require('request');
+
+tmdb.initialize = function(apiKey) {
+  tmdb.apiKey = apiKey;
+  tmdb.baseUrl = 'http://api.themoviedb.org/3';
+  tmdb.apiHeaders = {
     'Accept': 'application/json'
   };
-
-  this.getConfiguration = function(callback) {
-    request({
-      method: 'GET',
-      url: baseUrl + '/configuration',
-      headers: apiHeaders,
-      qs: {
-        api_key: apiKey
-      }
-    }, function(err, res, body) {
-       callback(body);
-    });
-  };
-
-  this.search = function(query, callback) {
-    request({
-      method: 'GET',
-      url: baseUrl + '/search/movie',
-      headers: apiHeaders,
-      qs: {
-        api_key: apiKey,
-        query: query
-      }
-    }, function(err, res, body) {
-      callback(body);
-    });
-  };
 };
+
+tmdb.configuration = function(callback) {
+  request({
+    method: 'GET',
+    url: tmdb.baseUrl + '/configuration',
+    headers: tmdb.apiHeaders,
+    qs: {
+      api_key: tmdb.apiKey
+    }
+  }, function(err, res, body) {
+     callback(body);
+  });
+};
+
+tmdb.search = function(query, callback) {
+  request({
+    method: 'GET',
+    url: tmdb.baseUrl + '/search/movie',
+    headers: tmdb.apiHeaders,
+    qs: {
+      api_key: tmdb.apiKey,
+      query: query
+    }
+  }, function(err, res, body) {
+    callback(body);
+  });
+};
+
+module.exports = tmdb;

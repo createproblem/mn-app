@@ -14,15 +14,12 @@ var getQuery = function(url) {
   return urlParts.query;
 };
 
-var tmdb = require('./tmdb');
-
-module.exports = function(app, passport) {
+module.exports = function(app, passport, tmdb) {
   // tmdb search
   app.get('/movies/search-tmdb', function(req, res) {
     var query = getQuery(req.url).query;
-    var a = new tmdb('xxx');
-    console.log(query);
-    a.search(query, function(body) {
+
+    tmdb.search(query, function(body) {
       res.send(body);
     });
   });

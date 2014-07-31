@@ -12,9 +12,11 @@ var session        = require('express-session');
 // configuration =================
 var config = require('./config/config');
 var port = process.env.PORT || 8080;
+var tmdb = require('./app/tmdb');
 
 mongoose.connect(config.database.dsn);
 require('./config/passport.js')(passport, config.passport);
+tmdb.initialize(config.api.tmdb.apiKey);
 
 app.use(bodyParser.json());
 app.use(bodyParser.json({ ttpe: 'application/vnd.api+json' }));
@@ -29,7 +31,7 @@ app.use(express.static(__dirname + '/.tmp'));
 app.use(morgan('dev'));
 
 // routes ========================
-require('./app/routes')(app, passport);
+require('./app/routes')(app, passport, tmdb);
 
 // start =========================
 app.listen(port);
