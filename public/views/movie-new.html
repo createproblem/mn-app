@@ -17,18 +17,12 @@
 </div>
 
 <div class="row">
-  <div class="small-12 medium-6 medium-push-3 columns">
-    <div class="movie" ng-repeat="movie in movies">
-      <div class="row">
-        <div class="small-3 columns">
-          <img class="thumb" src="http://image.tmdb.org/t/p/w154{{movie.poster_path}}">
-        </div>
-        <div class="small-6 columns">
-          <h4>{{movie.title}} <small>({{movie.release_date | date:'yyyy'}})</small></h4>
-        </div>
-        <div class="small-3 columns">
-          <a class="button tiny right"><i class="fa fa-save fa-lg"></i></a>
-        </div>
+  <div class="small-12 medium-4 columns movie" ng-repeat="movie in movies" data-equalizer-watch>
+    <div style="position: relative;" ng-switch on="movie.poster_path">
+      <img ng-switch-when="null" src="images/noimage.jpg">
+      <img ng-switch-default src="http://image.tmdb.org/t/p/w300{{movie.poster_path}}">
+      <div style="color: #000; position: absolute; top: 10; bottom: 0; left: 0; right: 0; background-color: rgba(255, 255, 255, 0.5); padding: 0.4rem;">
+        <strong>{{movie.title}}</strong> <small>({{movie.release_date | date:'yyyy'}})</small>
       </div>
     </div>
   </div>
