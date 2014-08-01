@@ -5,3 +5,5 @@ bower_components
 .sass-cache
 public
 tests
+tests
+*sublime*
