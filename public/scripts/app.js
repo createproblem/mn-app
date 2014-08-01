@@ -14,7 +14,8 @@ angular.module('mnApp', [
     .when('/movie/new', { templateUrl: 'views/movie-new.html', controller: 'MovieNewCtrl' })
   ;
 
-  $httpProvider.responseInterceptors.push(function($q, $location) {
+  var interceptor = ['$q', '$location',
+  function($q, $location) {
     return function(promise) {
       return promise.then(
         function(response) {
@@ -28,5 +29,7 @@ angular.module('mnApp', [
         }
       );
     };
-  });
+  }];
+
+  $httpProvider.responseInterceptors.push(interceptor);
 });

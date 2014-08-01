@@ -10,7 +10,7 @@ var passport       = require('passport');
 var session        = require('express-session');
 
 // configuration =================
-var config = require('./config/config');
+var config = require('./config/config')(process.env);
 var port = process.env.PORT || 8080;
 var tmdb = require('./app/tmdb');
 
@@ -26,9 +26,15 @@ app.use(session({ secret: 'mysecret', saveUninitialized: true, resave: true }));
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(methodOverride('X-HTTP-Method-Override')); // override with the X-HTTP-Method-Override header in the request. simulate DELETE/PUT
-app.use(express.static(__dirname + '/public'));
-app.use(express.static(__dirname + '/.tmp'));
-app.use(morgan('dev'));
+
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static(__dirname + '/dist'));
+  app.use(morgan('combined'));
+} else {
+  app.use(express.static(__dirname + '/public'));
+  app.use(express.static(__dirname + '/.tmp'));
+  app.use(morgan('dev'));
+}
 
 // routes ========================
 require('./app/routes')(app, passport, tmdb);

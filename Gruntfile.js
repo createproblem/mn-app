@@ -35,7 +35,7 @@ module.exports = function(grunt) {
         sassDir: 'public/styles',
         cssDir: '.tmp/styles'
       },
-      dev: {
+      main: {
         options: {
           debugInfo: true
         }
@@ -88,14 +88,25 @@ module.exports = function(grunt) {
       }
     },
 
+    imagemin: {
+      dist: {
+        files: [{
+          expand: true,
+          cwd: 'public/images',
+          src: '{,*/}*.{png,jpg,jpeg,gif}',
+          dest: '<%= application.dist %>/images'
+        }]
+      }
+    },
+
     // Copies remaining files to places other tasks can use
     copy: {
-      main: {
+      dev: {
         files: [{
           expand: true,
           cwd: 'config',
           dest: '.tmp',
-          src: ['config.js.dist']
+          src: ['config.env.json.dist']
         }]
       },
       dist: {
@@ -159,10 +170,10 @@ module.exports = function(grunt) {
     },
 
     rename: {
-      main: {
+      dev: {
         files: [{
-          src: ['.tmp/config.js.dist'],
-          dest: 'config/config.js'
+          src: ['.tmp/config.env.json.dist'],
+          dest: 'config/config.env.json'
         }]
       }
     },
@@ -178,6 +189,18 @@ module.exports = function(grunt) {
           src: '*.js',
           dest: '.tmp/concat/scripts'
         }]
+      }
+    },
+
+    env: {
+      dev: {
+        src: 'config/config.env.json'
+      },
+      dist: {
+        src: 'config/config.env.json',
+        add: {
+          NODE_ENV: 'production'
+        }
       }
     },
 
@@ -210,7 +233,7 @@ module.exports = function(grunt) {
     },
 
     nodemon: {
-      dev: {
+      main: {
         script: 'server.js'
       }
     },
@@ -219,7 +242,8 @@ module.exports = function(grunt) {
       options: {
         logConcurrentOutput: true
       },
-      tasks: ['nodemon', 'watch']
+      dev: ['nodemon', 'watch'],
+      dist: ['compass', 'imagemin']
     }
   });
 
@@ -242,8 +266,11 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-clean');
   grunt.loadNpmTasks('grunt-ngmin');
   grunt.loadNpmTasks('grunt-contrib-rename');
+  grunt.loadNpmTasks('grunt-contrib-imagemin');
+  grunt.loadNpmTasks('grunt-env');
 
-  grunt.registerTask('default', ['compass', 'jshint', 'concurrent']);
-  grunt.registerTask('config', ['copy:main', 'rename:main']);
-  grunt.registerTask('build', ['clean', 'useminPrepare', 'compass', 'concat', 'ngmin', 'copy', 'cssmin', 'uglify', 'filerev', 'usemin', 'htmlmin']);
+  grunt.registerTask('default', ['env:dev', 'compass', 'jshint', 'concurrent:dev']);
+  grunt.registerTask('config', ['copy:dev', 'rename:dev']);
+  grunt.registerTask('build', ['clean', 'useminPrepare', 'concurrent:dist', 'concat', 'ngmin', 'copy', 'cssmin', 'uglify', 'filerev', 'usemin', 'htmlmin']);
+  grunt.registerTask('dist', ['env:dist', 'nodemon']);
 };
