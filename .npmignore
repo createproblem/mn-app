@@ -1,6 +1,5 @@
 config/config.env.json
 node_modules
-bower_components
 .tmp
 .sass-cache
 public
