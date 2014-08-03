@@ -25,11 +25,13 @@
           <div class="movie-title">
             <strong>{{movie.title}}</strong> <small>({{movie.release_date | date:'yyyy'}})</small>
           </div>
+          <a class="button tiny disabled btn-add-movie"><i class="fa fa-save fa-lg"></i></a>
         </div>
-        <div class="movie-image" ng-switch-when="null" interchange="[images/noimage.jpg, (default)]">
+        <div class="movie-image" ng-switch-when="null" interchange="[static/noimage.jpg, (default)]">
           <div class="movie-title">
             <strong>{{movie.title}}</strong> <small>({{movie.release_date | date:'yyyy'}})</small>
           </div>
+          <a class="button tiny disabled btn-add-movie"><i class="fa fa-save fa-lg"></i></a>
         </div>
       </li>
     </ul>

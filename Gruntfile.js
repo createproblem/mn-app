@@ -95,6 +95,12 @@ module.exports = function(grunt) {
           cwd: 'public/images',
           src: '{,*/}*.{png,jpg,jpeg,gif}',
           dest: '<%= application.dist %>/images'
+        },
+        {
+          expand: true,
+          cwd: 'public/static',
+          src: '{,*/}*.{png,jpg,jpeg,gif}',
+          dest: '<%= application.dist %>/static'
         }]
       }
     },
@@ -128,6 +134,12 @@ module.exports = function(grunt) {
           expand: true,
           cwd: '.tmp/images',
           dest: '<%= application.dist %>/images',
+          src: ['generated/*']
+        },
+        {
+          expand: true,
+          cwd: '.tmp/static',
+          dest: '<%= application.dist %>/static',
           src: ['generated/*']
         },
         {
@@ -271,6 +283,6 @@ module.exports = function(grunt) {
 
   grunt.registerTask('default', ['env:dev', 'compass', 'jshint', 'concurrent:dev']);
   grunt.registerTask('config', ['copy:dev', 'rename:dev']);
-  grunt.registerTask('build', ['clean', 'useminPrepare', 'concurrent:dist', 'concat', 'ngmin', 'copy', 'cssmin', 'uglify', 'filerev', 'usemin', 'htmlmin']);
+  grunt.registerTask('build', ['clean', 'useminPrepare', 'concurrent:dist', 'concat', 'ngmin', 'copy:dist', 'cssmin', 'uglify', 'filerev', 'usemin', 'htmlmin']);
   grunt.registerTask('dist', ['env:dist', 'nodemon']);
 };

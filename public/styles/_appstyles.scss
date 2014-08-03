@@ -6,6 +6,7 @@
       max-width: 320px;
     }
     .movie-image {
+      position: relative;
       height: 100%;
       width: 100%;
       background-size:cover;
@@ -13,11 +14,16 @@
     }
     .movie-title {
       color: #fff;
-      position: relative;
-      top: rem-calc(370);
+      position: absolute;
+      bottom: 0;
       background-color: #000;
       padding: rem-calc(5);
       opacity: 0.7;
+      width: 100%;
+    }
+    .btn-add-movie {
+      position: absolute;
+      top: 0;
     }
   }
 }
