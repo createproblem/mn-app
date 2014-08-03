@@ -10,20 +10,33 @@
             <div class="small-2 columns">
               <button class="postfix">Search</button>
             </div>
+          </div>
         </div>
       </div>
     </form>
   </div>
 </div>
 
-<div class="row">
+<!-- <div class="row">
   <div class="small-12 medium-4 columns movie" ng-repeat="movie in movies" data-equalizer-watch>
     <div style="position: relative;" ng-switch on="movie.poster_path">
       <img ng-switch-when="null" src="images/noimage.jpg">
       <img ng-switch-default src="http://image.tmdb.org/t/p/w300{{movie.poster_path}}">
+      <img interchange="[images/transformers-small.jpg, (small)], [images/transformers-small.jpg, (medium)], [images/transformers-large.jpg, (large)]" src="images/transformers-small.jpg">
       <div style="color: #000; position: absolute; top: 10; bottom: 0; left: 0; right: 0; background-color: rgba(255, 255, 255, 0.5); padding: 0.4rem;">
         <strong>{{movie.title}}</strong> <small>({{movie.release_date | date:'yyyy'}})</small>
       </div>
     </div>
+  </div>
+</div> -->
+
+<div class="row">
+  <div class="small-12 columns small-centered">
+    <ul class="small-block-grid-1 medium-block-grid-3 large-block-grid-3 movie">
+      <li ng-repeat="movie in movies" ng-switch on="movie.poster_path">
+        <div ng-switch-default style="background-image:url(http://image.tmdb.org/t/p/w300{{movie.poster_path}});"></div>
+        <div ng-switch-when="null" interchange="[images/noimage.jpg, (default)]"></div>
+      </li>
+    </ul>
   </div>
 </div>
