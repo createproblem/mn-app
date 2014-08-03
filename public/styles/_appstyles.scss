@@ -5,11 +5,19 @@
     @media #{$small-only} {
       max-width: 320px;
     }
-    div {
+    .movie-image {
       height: 100%;
       width: 100%;
       background-size:cover;
       background-position:center center;
+    }
+    .movie-title {
+      color: #fff;
+      position: relative;
+      top: rem-calc(370);
+      background-color: #000;
+      padding: rem-calc(5);
+      opacity: 0.7;
     }
   }
 }
