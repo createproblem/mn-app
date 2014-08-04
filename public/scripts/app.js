@@ -3,6 +3,8 @@
 angular.module('mnApp', [
   'ngRoute',
   'ngResource',
+  'ngAnimate',
+  'toaster',
   'mm.foundation',
   'mnApp.services',
   'mnApp.controllers'

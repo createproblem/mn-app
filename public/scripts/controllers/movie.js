@@ -1,9 +1,8 @@
 'use strict';
 
-angular.module('mnApp.controllers').controller('MovieNewCtrl', ['$scope', 'Movie',
-  function($scope, Movie) {
+angular.module('mnApp.controllers').controller('MovieNewCtrl', ['$scope', 'Movie', 'toaster',
+  function($scope, Movie, toaster) {
     $scope.movies = [];
-
     $scope.search = function(isValid) {
       if (isValid) {
         Movie.searchTmdb({query: this.query}, function(res) {
@@ -13,6 +12,14 @@ angular.module('mnApp.controllers').controller('MovieNewCtrl', ['$scope', 'Movie
     };
 
     $scope.addMovie = function(tmdbId) {
-      Movie.add({tmdbId: tmdbId});
+      Movie.add({tmdbId: tmdbId}, function(response) {
+        if (response.name !== undefined) {
+          toaster.pop('warning', 'Movie already exists.');
+        } else {
+          var date = new Date(response.release_date).getFullYear();
+          var message = response.title + ' (' + date + ')';
+          toaster.pop('success', 'Movie added', message);
+        }
+      });
     };
   }]);
