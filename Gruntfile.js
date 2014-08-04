@@ -245,8 +245,11 @@ module.exports = function(grunt) {
     },
 
     nodemon: {
-      main: {
-        script: 'server.js'
+      dev: {
+        script: 'server.js',
+        options: {
+          ignore: ['node_modules/**', 'public/**'],
+        }
       }
     },
 
