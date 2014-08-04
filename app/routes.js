@@ -44,6 +44,17 @@ module.exports = function(app, passport, tmdb) {
     });
   });
 
+  // Get all movies
+  app.get('/movies', auth, function(req, res) {
+    Movie.find({user: req.user}, function(err, movies) {
+      if (err) {
+        res.send(err);
+      } else {
+        res.json(movies);
+      }
+    });
+  });
+
   // tmdb search
   app.get('/movies/search-tmdb', auth, function(req, res) {
     var query = getQuery(req.url).query;

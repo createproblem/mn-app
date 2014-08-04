@@ -33,6 +33,13 @@ angular.module('mnApp', [
       }
     })
     .when('/login', { templateUrl: 'views/login.html', controller: 'LoginCtrl' })
+    .when('/movies', {
+      templateUrl: 'views/movies.html',
+      controller: 'MovieCtrl',
+      resolve: {
+        loggedin: checkLoggedin
+      }
+    })
     .when('/movie/new', {
       templateUrl: 'views/movie-new.html',
       controller: 'MovieNewCtrl',
