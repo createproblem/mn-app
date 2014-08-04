@@ -39,4 +39,18 @@ tmdb.search = function(query, callback) {
   });
 };
 
+tmdb.movie = function(id, callback) {
+  request({
+    method: 'GET',
+    url: tmdb.baseUrl + '/movie/' + id,
+    headers: tmdb.apiHeaders,
+    qs: {
+      api_key: tmdb.apiKey,
+      append_to_response: 'trailers,images'
+    }
+  }, function(err, res, body) {
+    callback(body);
+  });
+};
+
 module.exports = tmdb;

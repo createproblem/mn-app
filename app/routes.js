@@ -1,3 +1,4 @@
+/* jshint camelcase: false */
 'use strict';
 
 var auth = function(req, res, next) {
@@ -14,9 +15,37 @@ var getQuery = function(url) {
   return urlParts.query;
 };
 
+var Movie = require('./models/movie');
+
 module.exports = function(app, passport, tmdb) {
+  // Add new movie
+  app.post('/movies', auth, function(req, res) {
+    var id = req.body.tmdbId;
+    tmdb.movie(id, function(body) {
+      var data = JSON.parse(body);
+
+      Movie.create({
+        tmdb_id: data.id,
+        user: req.user,
+        title: data.title,
+        overview: data.overview,
+        poster_path: data.poster_path,
+        release_date: data.release_date,
+        posters: data.images.posters.map(function(poster) { return poster.file_path; }),
+        backdrops: data.images.backdrops.map(function(backdrop) { return backdrop.file_path; }),
+        trailers: data.trailers.youtube
+      }, function(err, movie) {
+        if (err) {
+          res.send(err);
+        }
+        res.json(movie);
+      });
+
+    });
+  });
+
   // tmdb search
-  app.get('/movies/search-tmdb', function(req, res) {
+  app.get('/movies/search-tmdb', auth, function(req, res) {
     var query = getQuery(req.url).query;
 
     tmdb.search(query, function(body) {

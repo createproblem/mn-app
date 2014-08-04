@@ -11,4 +11,8 @@ angular.module('mnApp.controllers').controller('MovieNewCtrl', ['$scope', 'Movie
         });
       }
     };
+
+    $scope.addMovie = function(tmdbId) {
+      Movie.add({tmdbId: tmdbId});
+    };
   }]);
