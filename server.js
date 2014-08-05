@@ -12,7 +12,7 @@ var session        = require('express-session');
 // configuration =================
 var config = require('./config/config')(process.env);
 var port = process.env.PORT || 8080;
-var tmdb = require('./app/tmdb');
+var tmdb = require('./app/services/tmdb');
 
 mongoose.connect(config.database.dsn);
 require('./config/passport.js')(passport, config.passport);

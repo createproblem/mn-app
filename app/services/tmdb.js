@@ -49,7 +49,7 @@ tmdb.movie = function(id, callback) {
       append_to_response: 'trailers,images'
     }
   }, function(err, res, body) {
-    callback(body);
+    callback(JSON.parse(body));
   });
 };
 
