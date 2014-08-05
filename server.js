@@ -8,6 +8,7 @@ var morgan         = require('morgan');
 var cookieParser   = require('cookie-parser');
 var passport       = require('passport');
 var session        = require('express-session');
+var RedisStore     = require('connect-redis')(session);
 
 // configuration =================
 var config = require('./config/config')(process.env);
@@ -22,7 +23,9 @@ app.use(bodyParser.json());
 app.use(bodyParser.json({ ttpe: 'application/vnd.api+json' }));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
-app.use(session({ secret: 'mysecret', saveUninitialized: true, resave: true }));
+app.use(session({ store: new RedisStore({
+  host: 'localhost'
+}), secret: 'keyboard cat' }));
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(methodOverride('X-HTTP-Method-Override')); // override with the X-HTTP-Method-Override header in the request. simulate DELETE/PUT
