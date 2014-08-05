@@ -27,7 +27,7 @@ app.use(session({ store: new RedisStore({
   host: config.redis.host,
   port: config.redis.port,
   pass: config.redis.password
-}), secret: 'keyboard cat' }));
+}), secret: 'keyboard cat', saveUninitialized: true, resave: true }));
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(methodOverride('X-HTTP-Method-Override')); // override with the X-HTTP-Method-Override header in the request. simulate DELETE/PUT
