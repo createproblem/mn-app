@@ -19,7 +19,7 @@ module.exports = function(env) {
     redis: {
       host: env.REDIS_HOST,
       port: env.REDIS_PORT,
-      password: env.REDIS_PASSOWRD
+      password: env.REDIS_PASSWORD
     }
   };
 };
