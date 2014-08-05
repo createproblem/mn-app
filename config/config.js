@@ -15,6 +15,11 @@ module.exports = function(env) {
       tmdb: {
         apiKey: env.API_TMDB_API_KEY
       }
+    },
+    redis: {
+      host: env.REDIS_HOST,
+      port: env.REDIS_PORT,
+      password: env.REDIS_PASSOWRD
     }
   };
 };

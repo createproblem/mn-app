@@ -24,7 +24,9 @@ app.use(bodyParser.json({ ttpe: 'application/vnd.api+json' }));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(session({ store: new RedisStore({
-  host: 'localhost'
+  host: config.redis.host,
+  port: config.redis.port,
+  pass: config.redis.password
 }), secret: 'keyboard cat' }));
 app.use(passport.initialize());
 app.use(passport.session());
