@@ -29,15 +29,16 @@ angular.module('mnApp.controllers').controller('MovieNewCtrl', ['$scope', 'Movie
     $scope.movies = Movie.query();
     $scope.labelBox = {};
 
-    $scope.save = function(movie) {
-      console.log(movie);
+    var save = function(movie) {
+      movie.$save({id: movie.id});
     };
 
-    $scope.toggleLabelBox = function(movieId) {
-      if ($scope.labelBox[movieId] === undefined || $scope.labelBox[movieId].box === false) {
-        $scope.labelBox[movieId] = {css: 'fa-save', box: true, data: []};
+    $scope.toggleLabelBox = function(movie) {
+      if ($scope.labelBox[movie.id] === undefined || $scope.labelBox[movie.id].box === false) {
+        $scope.labelBox[movie.id] = {css: 'fa-save', box: true, data: []};
       } else {
-        $scope.labelBox[movieId] = {css: 'fa-tag', box: false, data: []};
+        $scope.labelBox[movie.id] = {css: 'fa-tag', box: false, data: []};
+        save(movie);
       }
     };
   }]);

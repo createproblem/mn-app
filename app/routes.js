@@ -44,6 +44,17 @@ module.exports = function(app, passport, tmdb) {
     });
   });
 
+  // Post movie
+  app.post('/movies/:id', auth, function(req, res) {
+    var movie = ms.model.findOne({user: req.user, _id: req.params.id}, function(err, movie) {
+      if (err) {
+        res.send(err);
+      } else {
+        res.json(movie);
+      }
+    });
+  });
+
   // Get labels
   app.get('/labels', auth, function(req, res) {
     ls.model.find({user: req.user}, function(err, labels) {
