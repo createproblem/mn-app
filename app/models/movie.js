@@ -1,4 +1,6 @@
 /* jshint camelcase: false */
+'use strict';
+
 var mongoose = require('mongoose');
 
 var movieSchema = mongoose.Schema({
@@ -19,5 +21,13 @@ var movieSchema = mongoose.Schema({
 });
 
 movieSchema.index({tmdb_id: 1, user: 1}, {unique: true});
+
+movieSchema.virtual('id').get(function() {
+    return this._id.toHexString();
+});
+
+movieSchema.set('toJSON', {
+    virtuals: true
+});
 
 module.exports = mongoose.model('Movie', movieSchema);
