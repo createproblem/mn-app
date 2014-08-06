@@ -1,0 +1,32 @@
+.selectize-input, .selectize-input.dropdown-active, .selectize-dropdown {
+    border-radius: 0;
+}
+
+.selectize-dropdown, .selectize-input, .selectize-input input {
+    color: $input-font-color;
+    font-size: $input-font-size;
+}
+
+.selectize-input {
+    // height: ($input-font-size + ($form-spacing * 1.5) - rem-calc(1));
+}
+
+.selectize-input > input {
+    @include form-element();
+    top: 1px;
+    height: auto;
+    display: inline-block;
+}
+
+.selectize-input > div.item {
+    margin-top: 1px;
+}
+
+.selectize-dropdown [data-selectable] .highlight {
+    background: scale-color($f-dropdown-list-hover-bg, $lightness: -10%);
+}
+
+.selectize-dropdown .active {
+    background: $f-dropdown-list-hover-bg;
+    color: scale-color($input-font-color, $lightness: -20%);
+}

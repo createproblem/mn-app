@@ -1,3 +1,4 @@
+/* jshint camelcase: false */
 'use strict';
 
 angular.module('mnApp.controllers').controller('MovieNewCtrl', ['$scope', 'Movie', 'toaster',
@@ -26,4 +27,18 @@ angular.module('mnApp.controllers').controller('MovieNewCtrl', ['$scope', 'Movie
 .controller('MovieCtrl', ['$scope', 'Movie',
   function($scope, Movie) {
     $scope.movies = Movie.query();
+    $scope.labelBox = {};
+
+    $scope.save = function(movie) {
+      // console.log(movie);
+    };
+
+    $scope.toggleLabelBox = function(movieId) {
+      console.log(movieId);
+      if ($scope.labelBox[movieId] === undefined || $scope.labelBox[movieId].box === false) {
+        $scope.labelBox[movieId] = {css: 'fa-save', box: true, data: []};
+      } else {
+        $scope.labelBox[movieId] = {css: 'fa-tag', box: false, data: []};
+      }
+    };
   }]);

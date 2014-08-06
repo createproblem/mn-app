@@ -12,23 +12,23 @@
           <ul class="label-list">
             <li ng-repeat="label in movie.labels|orderBy:'name'"><span class="label">{{label.name}}</span></li>
           </ul>
-          <input selectize="{create: true}" options='[1, 2, 3]' ng-model="labelData[movie.id]" ng-show="labelBox[movie.id]">
+          <input selectize="{create: true}" options='[1, 2, 3]' ng-model="labelBox[movie.id].data" ng-show="labelBox[movie.id].box">
 
           <p class="hide-for-small-only">{{movie.overview | limitTo:200}}</p>
         </div>
         <div class="medium-3 columns hide-for-small-only">
-          <a class="button tiny secondary right" ng-click="toggleLabelBox(movie.id)" ng-hide="labelBox[movie.id]">
-            <i class="fa fa-tag"></i>
+          <a class="button tiny secondary right" ng-click="toggleLabelBox(movie.id)">
+            <i ng-class="labelBox[movie.id].css" class="fa fa-tag"></i>
           </a>
-          <a class="button tiny secondary right" ng-click="save(movie); toggleLabelBox(movie.id)" ng-show="labelBox[movie.id]">
+          <!-- <a class="button tiny secondary right" ng-click="save(movie); toggleLabelBox(movie.id)" ng-show="labelBox[movie.id]">
             <i class="fa fa-save"></i>
-          </a>
-          <a class="button tiny secondary right">
+          </a> -->
+         <!--  <a class="button tiny secondary right">
             <i class="fa fa-trash-o"></i>
           </a>
           <a class="button tiny secondary right">
             <i class="fa fa-star"></i>
-          </a>
+          </a> -->
         </div>
       </div>
     </div>
