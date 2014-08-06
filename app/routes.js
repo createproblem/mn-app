@@ -16,6 +16,7 @@ var getQuery = function(url) {
 };
 
 var ms = require('./services/movieService');
+var ls = require('./services/labelService');
 
 module.exports = function(app, passport, tmdb) {
   // Add new movie
@@ -41,6 +42,17 @@ module.exports = function(app, passport, tmdb) {
         res.json(movies);
       }
     });
+  });
+
+  // Get labels
+  app.get('/labels', auth, function(req, res) {
+    ls.model.find({user: req.user}, function(err, labels) {
+      if (err) {
+        res.send(err);
+      } else {
+        res.json(labels);
+      }
+    })
   });
 
   // tmdb search
