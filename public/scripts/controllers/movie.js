@@ -30,7 +30,7 @@ angular.module('mnApp.controllers').controller('MovieNewCtrl', ['$scope', 'Movie
     $scope.labelBox = {};
 
     var save = function(movie) {
-      movie.$save({id: movie.id});
+      movie.$update({id: movie.id});
     };
 
     $scope.toggleLabelBox = function(movie) {

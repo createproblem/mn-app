@@ -44,8 +44,8 @@ module.exports = function(app, passport, tmdb) {
     });
   });
 
-  // Post movie
-  app.post('/movies/:id', auth, function(req, res) {
+  // Put movie
+  app.put('/movies/:id', auth, function(req, res) {
     var movie = ms.model.findOne({user: req.user, _id: req.params.id}, function(err, movie) {
       if (err) {
         res.send(err);
