@@ -30,11 +30,10 @@ angular.module('mnApp.controllers').controller('MovieNewCtrl', ['$scope', 'Movie
     $scope.labelBox = {};
 
     $scope.save = function(movie) {
-      // console.log(movie);
+      console.log(movie);
     };
 
     $scope.toggleLabelBox = function(movieId) {
-      console.log(movieId);
       if ($scope.labelBox[movieId] === undefined || $scope.labelBox[movieId].box === false) {
         $scope.labelBox[movieId] = {css: 'fa-save', box: true, data: []};
       } else {

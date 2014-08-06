@@ -5,6 +5,7 @@ angular.module('mnApp.services').factory('Movie', ['$resource',
     return $resource('/movies', {}, {
       'searchTmdb': {method: 'GET', url: '/movies/search-tmdb'},
       'add': {method: 'POST', isArray: false},
-      'query': {method: 'GET', isArray: true}
+      'query': {method: 'GET', isArray: true},
+      'labels': {method: 'GET', url: '/labels', isArray: true}
     });
   }]);
