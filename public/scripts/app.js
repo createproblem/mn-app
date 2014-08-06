@@ -7,6 +7,7 @@ angular.module('mnApp', [
   'toaster',
   'mm.foundation',
   'mnApp.services',
+  'mnApp.directives',
   'mnApp.controllers'
 ]).config(function($routeProvider, $httpProvider) {
   var checkLoggedin = ['$q', '$timeout', '$http', '$location', '$rootScope',
