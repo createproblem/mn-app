@@ -34,37 +34,7 @@ module.exports = function(app, passport) {
 
   // Put movie
   app.put('/movies/:id', auth, function(req, res) {
-    ms.model.findOne({user: req.user, _id: req.params.id}, function(err, movie) {
-      var data = req.body.labels;
-      ls.model.find({name: data.map(function(l) { return l.name; })}, function(err, labels) {
-        var newLabels = data.map(function(l) { return l.name; });
-        labels.forEach(function(l) {
-          var idx = newLabels.indexOf(l.name)
-          if (idx !== -1) {
-            newLabels.splice(idx, 1);
-          }
-        });
-
-        newLabels.forEach(function(l) {
-          ls.model.create({
-            name: l,
-            user: req.user
-          }, function(err, label) {
-            movie.labels.push(label);
-            movie.save(function(err, movie) {
-              ms.model.findOne({_id: movie._id}).populate('labels').exec(function(err, m) {
-                if (err) {
-                  red.send(err);
-                } else {
-                  console.log(m);
-                  res.json(m);
-                }
-              });
-            });
-          });
-        });
-      });
-    });
+    MovieCtrl.runUpdateMovie(req, res);
   });
 
   // Get labels

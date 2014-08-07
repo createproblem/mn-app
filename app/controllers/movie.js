@@ -54,7 +54,8 @@ Movie.prototype.runUpdateMovie = function(req, res) {
   this.model.findOne({_id: req.params.id, user: req.user}, function(err, movie) {
     if (err) return self.errorHandler(err);
 
-    var labelsRaw = req.body.labels.split(',');
+    var labelsRaw = req.body.labels.map(function(label) {return label.name});
+
     Label.find({name: labelsRaw}, function(err, labelsFound) {
       if (err) return self.errorHandler(err);
 
@@ -65,11 +66,33 @@ Movie.prototype.runUpdateMovie = function(req, res) {
         }
       });
 
+      var labelsNew = labelsRaw.map(function(labelName) { return {name: labelName, user: req.user}});
+      Label.create(labelsNew, function(err, labels) {
+        if (err) return self.errorHandler(err);
 
+        movie.labels = [];
+        if (labels !== undefined) {
+          for (var i = 0; i < labels.length; i++) {
+            movie.labels.push(labels[i]);
+          }
+        }
+
+        for (var i = 0; i < labelsFound.length; i++) {
+          movie.labels.push(labelsFound[i]);
+        }
+
+        console.log(movie);
+        movie.save(function(err, movie) {
+          if (err) return self.errorHandler(err);
+
+          self.model.findOne({_id: movie._id}).populate('labels').exec(function(err, movie) {
+            if (err) return self.errorHandler(err);
+            res.json(movie);
+          });
+        });
+      });
     });
   });
-
-  res.send(200);
 };
 
 module.exports = new Movie(model);

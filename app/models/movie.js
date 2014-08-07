@@ -13,7 +13,7 @@ var movieSchema = mongoose.Schema({
   title: String,
   overview: String,
   poster_path: String,
-  labels: [{ type: mongoose.Schema.ObjectId, ref: 'Label', index: true }],
+  labels: [{ type: mongoose.Schema.ObjectId, ref: 'Label', index: true}],
   trailers: Array,
   posters: Array,
   backdrops: Array,
@@ -30,7 +30,6 @@ movieSchema.methods.toJSON = function() {
   delete obj.backdrops;
   delete obj.user;
   delete obj.__v;
-  delete obj._id;
 
   return obj;
 };
