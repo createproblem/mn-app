@@ -54,10 +54,10 @@ Movie.prototype.runUpdateMovie = function(req, res) {
   this.model.findOne({_id: req.params.id, user: req.user}, function(err, movie) {
     if (err) return self.errorHandler(err);
 
-    var labelsRaw = req.body.labels.map(function(label) {return label.name});
+    var labelsRaw = req.body.labels.map(function(label) {return label.name;});
 
     // reset labels
-    movie.labels = []
+    movie.labels = [];
 
     // find existing labesl and add
     Label.find({name: {$in: labelsRaw}}, function(err, labelsExist) {

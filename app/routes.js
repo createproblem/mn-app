@@ -9,14 +9,6 @@ var auth = function(req, res, next) {
   }
 };
 
-var getQuery = function(url) {
-  var urlParser = require('url');
-  var urlParts = urlParser.parse(url, true);
-  return urlParts.query;
-};
-
-var ms = require('./services/movieService');
-var ls = require('./services/labelService');
 var MovieCtrl = require('./controllers/movie');
 var LabelCtrl = require('./controllers/label');
 var ProfileCtrl = require('./controllers/profile');

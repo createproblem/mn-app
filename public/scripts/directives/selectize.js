@@ -11,7 +11,7 @@ angular.module('mnApp.directives').value('selectizeConfig', {})
     scope: {
       ngShow: '='
     },
-    link: function($scope, $element, attr, ngModel) {
+    link: function($scope, $element, attr) {
       var show = function(value) {
         if (value) {
           $element.show();

@@ -34,7 +34,7 @@ angular.module('mnApp.controllers').controller('MovieNewCtrl', ['$scope', 'Movie
       if (data.length === 0) {
         movie.labels = [];
       } else {
-        movie.labels = $scope.labelBox[movie._id].data.split(',').map(function(name) {return {name: name}});
+        movie.labels = $scope.labelBox[movie._id].data.split(',').map(function(name) {return {name: name};});
       }
       movie.$update({id: movie._id});
     };
@@ -42,7 +42,7 @@ angular.module('mnApp.controllers').controller('MovieNewCtrl', ['$scope', 'Movie
     $scope.toggleLabelBox = function(movie) {
       if ($scope.labelBox[movie._id] === undefined) {
         $scope.labelBox[movie._id] = {css: 'fa-save', box: true, data: []};
-        $scope.labelBox[movie._id].data = movie.labels.map(function(label) {return label.name}).join(',');
+        $scope.labelBox[movie._id].data = movie.labels.map(function(label) {return label.name;}).join(',');
       } else if ($scope.labelBox[movie._id].box === false) {
         $scope.labelBox[movie._id].css = 'fa-save';
         $scope.labelBox[movie._id].box = true;
