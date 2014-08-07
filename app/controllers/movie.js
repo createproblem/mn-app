@@ -56,37 +56,55 @@ Movie.prototype.runUpdateMovie = function(req, res) {
 
     var labelsRaw = req.body.labels.map(function(label) {return label.name});
 
-    Label.find({name: labelsRaw}, function(err, labelsFound) {
-      if (err) return self.errorHandler(err);
+    // delete all labels
+    // if (labelsRaw.length === 0) {
+    //   movie.labels = [];
+    //   movie.save(function(err, movie) {
+    //     if (err) return self.errorHandler(err);
 
-      labelsFound.forEach(function(label) {
+    //     self.model.findOne({_id: movie._id}, function(err, movie) {
+    //       res.json(movie);
+    //       return;
+    //     });
+    //   });
+    // }
+
+    // reset labels
+    movie.labels = []
+
+    // find existing labesl and add
+    Label.find({name: {$in: labelsRaw}}, function(err, labelsExist) {
+      movie.labels = labelsExist;
+
+      // remove found labels from raw
+      labelsExist.forEach(function(label) {
         var idx = labelsRaw.indexOf(label.name);
         if (idx !== -1) {
           labelsRaw.splice(idx, 1);
         }
       });
 
-      var labelsNew = labelsRaw.map(function(labelName) { return {name: labelName, user: req.user}});
-      Label.create(labelsNew, function(err, labels) {
+      // create new labels
+      var newLabels = labelsRaw.map(function(name) {
+        return {
+          name: name,
+          user: req.user
+        };
+      });
+
+      Label.create(newLabels, function(err) {
         if (err) return self.errorHandler(err);
 
-        movie.labels = [];
-        if (labels !== undefined) {
-          for (var i = 0; i < labels.length; i++) {
-            movie.labels.push(labels[i]);
-          }
+        for (var i = 1; i < arguments.length; i++) {
+          movie.labels.push(arguments[i]);
         }
 
-        for (var i = 0; i < labelsFound.length; i++) {
-          movie.labels.push(labelsFound[i]);
-        }
-
-        movie.save(function(err, movie) {
+        // save movie
+        movie.save(function(err, movieUpdated) {
           if (err) return self.errorHandler(err);
 
-          self.model.findOne({_id: movie._id}).populate('labels').exec(function(err, movie) {
-            if (err) return self.errorHandler(err);
-            res.json(movie);
+          self.model.findOne({_id: movieUpdated._id}).populate('labels').exec(function(err, movieNew) {
+            res.json(movieNew);
           });
         });
       });

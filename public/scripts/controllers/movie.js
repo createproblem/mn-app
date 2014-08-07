@@ -30,15 +30,19 @@ angular.module('mnApp.controllers').controller('MovieNewCtrl', ['$scope', 'Movie
     $scope.labelBox = {};
 
     var save = function(movie) {
-      movie.labels = [];
-      movie.labels.push({name: 'Horror'});
+      var data = $scope.labelBox[movie._id].data;
+      if (data.length === 0) {
+        movie.labels = [];
+      } else {
+        movie.labels = $scope.labelBox[movie._id].data.split(',').map(function(name) {return {name: name}});
+      }
       movie.$update({id: movie._id});
     };
 
     $scope.toggleLabelBox = function(movie) {
-      console.log(movie);
       if ($scope.labelBox[movie._id] === undefined) {
         $scope.labelBox[movie._id] = {css: 'fa-save', box: true, data: []};
+        $scope.labelBox[movie._id].data = movie.labels.map(function(label) {return label.name}).join(',');
       } else if ($scope.labelBox[movie._id].box === false) {
         $scope.labelBox[movie._id].css = 'fa-save';
         $scope.labelBox[movie._id].box = true;
