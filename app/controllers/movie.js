@@ -4,6 +4,7 @@
 var util           = require('util');
 var BaseController = require('./base');
 var model          = require('../models/movie');
+var tmdb           = require('../services/tmdb');
 
 function Movie(model) {
   this.model = model;
@@ -21,6 +22,13 @@ util.inherits(Movie, BaseController);
 Movie.prototype.run = function(req, res) {
   this.getMovies(req.user, function(movies) {
     res.json(movies);
+  });
+};
+
+Movie.prototype.runTmdbSearch = function(req, res) {
+  var query = req.query.query;
+  tmdb.search(query, function(response) {
+    res.json(JSON.parse(response));
   });
 };
 

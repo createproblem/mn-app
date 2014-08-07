@@ -1,9 +1,9 @@
 /*jshint curly: false */
 'use strict';
 
-var util = require('util');
+var util           = require('util');
 var BaseController = require('./base');
-var model = require('../models/user');
+var model          = require('../models/user');
 
 function User(model) {
   this.model = model;

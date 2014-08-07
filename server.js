@@ -42,7 +42,7 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 // routes ========================
-require('./app/routes')(app, passport, tmdb);
+require('./app/routes')(app, passport);
 
 // start =========================
 app.listen(port);

@@ -21,7 +21,7 @@ var MovieCtrl = require('./controllers/movie');
 var LabelCtrl = require('./controllers/label');
 var ProfileCtrl = require('./controllers/profile');
 
-module.exports = function(app, passport, tmdb) {
+module.exports = function(app, passport) {
   // Add new movie
   app.post('/movies', auth, function(req, res) {
     var tmdbId = req.body.tmdbId;
@@ -83,11 +83,7 @@ module.exports = function(app, passport, tmdb) {
 
   // tmdb search
   app.get('/movies/search-tmdb', auth, function(req, res) {
-    var query = getQuery(req.url).query;
-
-    tmdb.search(query, function(body) {
-      res.send(body);
-    });
+    MovieCtrl.runTmdbSearch(req, res);
   });
 
   // get the user profile
