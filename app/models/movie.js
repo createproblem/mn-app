@@ -35,4 +35,18 @@ movieSchema.methods.toJSON = function() {
   return obj;
 };
 
+movieSchema.statics.createFromTmdb = function(data, user, callback) {
+  return mongoose.Model.create.call(this.model('Movie'), {
+    tmdb_id: data.id,
+    user: user,
+    title: data.title,
+    overview: data.overview,
+    poster_path: data.poster_path,
+    release_date: data.release_date,
+    posters: data.images.posters.map(function(poster) { return poster.file_path; }),
+    backdrops: data.images.backdrops.map(function(backdrop) { return backdrop.file_path; }),
+    trailers: data.trailers.youtube
+  }, callback);
+};
+
 module.exports = mongoose.model('Movie', movieSchema);

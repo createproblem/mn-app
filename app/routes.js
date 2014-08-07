@@ -24,16 +24,7 @@ var ProfileCtrl = require('./controllers/profile');
 module.exports = function(app, passport) {
   // Add new movie
   app.post('/movies', auth, function(req, res) {
-    var tmdbId = req.body.tmdbId;
-    tmdb.movie(tmdbId, function(data) {
-      ms.createFromTmdb(data, req.user, function(err, movie) {
-        if (err) {
-          res.send(err);
-        } else {
-          res.json(movie);
-        }
-      });
-    });
+    MovieCtrl.runAddMovie(req, res);
   });
 
   // Get all movies

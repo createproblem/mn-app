@@ -32,4 +32,18 @@ Movie.prototype.runTmdbSearch = function(req, res) {
   });
 };
 
+Movie.prototype.runAddMovie = function(req, res) {
+  var tmdbId = req.body.tmdbId;
+  var self = this;
+
+  tmdb.movie(tmdbId, function(response) {
+    var movieData = JSON.parse(response);
+    self.model.createFromTmdb(movieData, req.user, function(err, movie) {
+      if (err) return self.errorHandler(err);
+
+      res.json(movie);
+    });
+  });
+};
+
 module.exports = new Movie(model);
