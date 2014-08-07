@@ -5,6 +5,7 @@ var util           = require('util');
 var BaseController = require('./base');
 var model          = require('../models/movie');
 var tmdb           = require('../services/tmdb');
+var Label          = require('../models/label');
 
 function Movie(model) {
   this.model = model;
@@ -45,6 +46,30 @@ Movie.prototype.runAddMovie = function(req, res) {
       res.json(movie);
     });
   });
+};
+
+Movie.prototype.runUpdateMovie = function(req, res) {
+  var self = this;
+
+  this.model.findOne({_id: req.params.id, user: req.user}, function(err, movie) {
+    if (err) return self.errorHandler(err);
+
+    var labelsRaw = req.body.labels.split(',');
+    Label.find({name: labelsRaw}, function(err, labelsFound) {
+      if (err) return self.errorHandler(err);
+
+      labelsFound.forEach(function(label) {
+        var idx = labelsRaw.indexOf(label.name);
+        if (idx !== -1) {
+          labelsRaw.splice(idx, 1);
+        }
+      });
+
+
+    });
+  });
+
+  res.send(200);
 };
 
 module.exports = new Movie(model);
