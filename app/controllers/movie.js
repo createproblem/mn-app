@@ -1,8 +1,9 @@
+/*jshint curly: false */
 'use strict';
 
-var util = require('util');
+var util           = require('util');
 var BaseController = require('./base');
-var model = require('../models/movie');
+var model          = require('../models/movie');
 
 function Movie(model) {
   this.model = model;
@@ -17,7 +18,7 @@ function Movie(model) {
 
 util.inherits(Movie, BaseController);
 
-Movie.prototype.run = function(req, res, next) {
+Movie.prototype.run = function(req, res) {
   this.getMovies(req.user, function(movies) {
     res.json(movies);
   });

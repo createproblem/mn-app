@@ -13,12 +13,12 @@ var labelSchema = mongoose.Schema({
 
 labelSchema.index({name: 1, user: 1}, {unique: true});
 
-labelSchema.virtual('id').get(function() {
-    return this._id.toHexString();
-});
+labelSchema.methods.toJSON = function() {
+  var obj = this.toObject();
+  delete obj.__v;
+  delete obj.user;
 
-labelSchema.set('toJSON', {
-    virtuals: true
-});
+  return obj;
+};
 
 module.exports = mongoose.model('Label', labelSchema);

@@ -18,6 +18,8 @@ var getQuery = function(url) {
 var ms = require('./services/movieService');
 var ls = require('./services/labelService');
 var MovieCtrl = require('./controllers/movie');
+var LabelCtrl = require('./controllers/label');
+var ProfileCtrl = require('./controllers/profile');
 
 module.exports = function(app, passport, tmdb) {
   // Add new movie
@@ -35,8 +37,8 @@ module.exports = function(app, passport, tmdb) {
   });
 
   // Get all movies
-  app.get('/movies', auth, function(req, res, next) {
-    MovieCtrl.run(req, res, next)
+  app.get('/movies', auth, function(req, res) {
+    MovieCtrl.run(req, res);
   });
 
   // Put movie
@@ -76,13 +78,7 @@ module.exports = function(app, passport, tmdb) {
 
   // Get labels
   app.get('/labels', auth, function(req, res) {
-    ls.model.find({user: req.user}, function(err, labels) {
-      if (err) {
-        res.send(err);
-      } else {
-        res.json(labels);
-      }
-    })
+    LabelCtrl.run(req, res);
   });
 
   // tmdb search
@@ -96,7 +92,7 @@ module.exports = function(app, passport, tmdb) {
 
   // get the user profile
   app.get('/profile', auth, function(req, res) {
-    res.json(req.user);
+    ProfileCtrl.run(req, res);
   });
 
   // github authentication

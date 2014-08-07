@@ -25,7 +25,6 @@ movieSchema.index({tmdb_id: 1, user: 1}, {unique: true});
 
 movieSchema.methods.toJSON = function() {
   var obj = this.toObject();
-  obj.id = obj._id;
 
   delete obj.posters;
   delete obj.backdrops;
@@ -34,6 +33,6 @@ movieSchema.methods.toJSON = function() {
   delete obj._id;
 
   return obj;
-}
+};
 
 module.exports = mongoose.model('Movie', movieSchema);
