@@ -23,12 +23,17 @@ var movieSchema = mongoose.Schema({
 
 movieSchema.index({tmdb_id: 1, user: 1}, {unique: true});
 
-movieSchema.virtual('id').get(function() {
-    return this._id.toHexString();
-});
+movieSchema.methods.toJSON = function() {
+  var obj = this.toObject();
+  obj.id = obj._id;
 
-movieSchema.set('toJSON', {
-    virtuals: true
-});
+  delete obj.posters;
+  delete obj.backdrops;
+  delete obj.user;
+  delete obj.__v;
+  delete obj._id;
+
+  return obj;
+}
 
 module.exports = mongoose.model('Movie', movieSchema);

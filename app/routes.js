@@ -17,6 +17,7 @@ var getQuery = function(url) {
 
 var ms = require('./services/movieService');
 var ls = require('./services/labelService');
+var MovieCtrl = require('./controllers/movie');
 
 module.exports = function(app, passport, tmdb) {
   // Add new movie
@@ -34,14 +35,8 @@ module.exports = function(app, passport, tmdb) {
   });
 
   // Get all movies
-  app.get('/movies', auth, function(req, res) {
-    ms.model.find({user: req.user}, function(err, movies) {
-      if (err) {
-        res.send(err);
-      } else {
-        res.json(movies);
-      }
-    });
+  app.get('/movies', auth, function(req, res, next) {
+    MovieCtrl.run(req, res, next)
   });
 
   // Put movie

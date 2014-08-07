@@ -249,6 +249,7 @@ module.exports = function(grunt) {
         script: 'server.js',
         options: {
           ignore: ['node_modules/**', 'public/**'],
+          watch: ['app/**/*.js']
         }
       }
     },
