@@ -12,8 +12,9 @@ function Label(model) {
 util.inherits(Label, BaseController);
 
 Label.prototype.run = function(req, res) {
+  var self = this;
   this.model.find({user: req.user}, function(err, labels) {
-    if (err) return this.errorHandler(err);
+    if (err) return self.errorHandler(err);
 
     res.json(labels);
   });
