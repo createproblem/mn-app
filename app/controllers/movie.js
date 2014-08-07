@@ -56,19 +56,6 @@ Movie.prototype.runUpdateMovie = function(req, res) {
 
     var labelsRaw = req.body.labels.map(function(label) {return label.name});
 
-    // delete all labels
-    // if (labelsRaw.length === 0) {
-    //   movie.labels = [];
-    //   movie.save(function(err, movie) {
-    //     if (err) return self.errorHandler(err);
-
-    //     self.model.findOne({_id: movie._id}, function(err, movie) {
-    //       res.json(movie);
-    //       return;
-    //     });
-    //   });
-    // }
-
     // reset labels
     movie.labels = []
 
