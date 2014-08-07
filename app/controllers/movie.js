@@ -81,7 +81,6 @@ Movie.prototype.runUpdateMovie = function(req, res) {
           movie.labels.push(labelsFound[i]);
         }
 
-        console.log(movie);
         movie.save(function(err, movie) {
           if (err) return self.errorHandler(err);
 
