@@ -9,8 +9,9 @@ var tmdb           = require('../services/tmdb');
 function Movie(model) {
   this.model = model;
   this.getMovies = function(user, callback) {
+    var self = this;
     this.model.find({user: user}).populate('labels', 'name').exec(function(err, movies) {
-      if (err) return this.errorHandler(err);
+      if (err) return self.errorHandler(err);
 
       callback(movies);
     });
