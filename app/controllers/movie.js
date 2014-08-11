@@ -86,12 +86,15 @@ Movie.prototype.runUpdateMovie = function(req, res) {
           movie.labels.push(arguments[i]);
         }
 
-        // save movie
-        movie.save(function(err, movieUpdated) {
-          if (err) return self.errorHandler(err);
-
-          self.model.findOne({_id: movieUpdated._id}).populate('labels').exec(function(err, movieNew) {
-            res.json(movieNew);
+        // save and add an reset save -> mongoose issue
+        var labels = movie.labels;
+        movie.labels = [];
+        movie.save(function(err, movie) {
+          movie.labels = labels;
+          movie.save(function(err, movie) {
+            self.model.findOne({_id: movie._id}).populate('labels').exec(function(err, movieNew) {
+              res.json(movieNew);
+            });
           });
         });
       });
