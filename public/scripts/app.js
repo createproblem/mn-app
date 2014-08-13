@@ -66,25 +66,5 @@ angular.module('mnApp', [
     };
   }];
 
-  var progressInterceptor = ['$q', function($q) {
-    var working = false;
-    var startCount = 0;
-    return {
-      request: function (config) {
-        startCount++;
-        console.log('show');
-        return config || $q.when(config);
-      },
-
-      response: function (response) {
-        if ((--startCount) === 0) {
-          console.log('hide');
-        }
-        return response || $q.when(response);
-      }
-    };
-  }];
-
   $httpProvider.responseInterceptors.push(interceptor);
-  $httpProvider.interceptors.push(progressInterceptor);
 });
