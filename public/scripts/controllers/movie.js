@@ -28,6 +28,8 @@ angular.module('mnApp.controllers').controller('MovieNewCtrl', ['$scope', 'Movie
   function($scope, Movie) {
     $scope.movies = Movie.query();
     $scope.labelBox = {};
+    $scope.labels = Movie.labels();
+    $scope.sLabels = [];
 
     var save = function(movie) {
       var data = $scope.labelBox[movie._id].data;
@@ -37,6 +39,19 @@ angular.module('mnApp.controllers').controller('MovieNewCtrl', ['$scope', 'Movie
         movie.labels = $scope.labelBox[movie._id].data.split(',').map(function(name) {return {name: name};});
       }
       movie.$update({id: movie._id});
+    };
+
+    $scope.toggleLabelSelection = function(labelName) {
+      var idx = $scope.sLabels.indexOf(labelName);
+      if (idx > -1) {
+        $scope.sLabels.splice(idx, 1);
+      } else {
+        $scope.sLabels.push(labelName);
+      }
+    };
+
+    $scope.resetLabelSelection = function() {
+      $scope.sLabels.splice(0, $scope.sLabels.length);
     };
 
     $scope.toggleLabelBox = function(movie) {

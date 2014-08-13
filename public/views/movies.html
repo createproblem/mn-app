@@ -1,9 +1,19 @@
-<div class="row" role="content">
+<div class="row">
+  <div class="small-12 columns">
+    <ul class="label-list">
+      <li ng-repeat="label in labels"><a class="label" ng-click="toggleLabelSelection(label.name)">{{label.name}}</a></li>
+      <li><a class="label" ng-click="resetLabelSelection()">CLEAR</a></li>
+      <li><a class="label" ng-click="toggleLabelSelection('-no-labels-')">EMPTY</a></li>
+    </ul>
+  </div>
+</div>
+
+<div class="row">
   <div class="small-12 medium-12 columns">
-    <div class="movie2" ng-repeat="movie in movies|orderBy:'release_date':true">
+    <div class="movie2" ng-repeat="movie in movies|orderBy:'release_date':true | selectedLabels:sLabels">
       <div class="row">
         <div class="small-4 medium-2 columns">
-          <img class="thumb" src="http://image.tmdb.org/t/p/w154{{movie.poster_path}}">
+          <img class="thumb" ng-src="http://image.tmdb.org/t/p/w154{{movie.poster_path}}">
         </div>
         <div class="small-8 medium-7 columns">
           <h4>
@@ -20,18 +30,8 @@
           <a class="button tiny secondary right" ng-click="toggleLabelBox(movie)">
             <i ng-class="labelBox[movie._id].css" class="fa fa-tag"></i>
           </a>
-          <!-- <a class="button tiny secondary right" ng-click="save(movie); toggleLabelBox(movie.id)" ng-show="labelBox[movie.id]">
-            <i class="fa fa-save"></i>
-          </a> -->
-         <!--  <a class="button tiny secondary right">
-            <i class="fa fa-trash-o"></i>
-          </a>
-          <a class="button tiny secondary right">
-            <i class="fa fa-star"></i>
-          </a> -->
         </div>
       </div>
     </div>
   </div>
-  <!-- <div class="medium-3 columns medium-pull-9" style="border: 1px aqua solid;">asd</div> -->
 </div>
