@@ -54,6 +54,12 @@ angular.module('mnApp.controllers').controller('MovieNewCtrl', ['$scope', 'Movie
       $scope.sLabels.splice(0, $scope.sLabels.length);
     };
 
+    $scope.isLabelSelected = function(labelName) {
+      // console.log('message');
+      return $scope.sLabels.indexOf(labelName) !== -1;
+      // return true;
+    };
+
     $scope.toggleLabelBox = function(movie) {
       if ($scope.labelBox[movie._id] === undefined) {
         $scope.labelBox[movie._id] = {css: 'fa-save', box: true, data: []};

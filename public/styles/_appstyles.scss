@@ -45,5 +45,8 @@
   li {
     display: inline-block;
     margin-right: 5px;
+    .active {
+      background: red;
+    }
   }
 }

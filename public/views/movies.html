@@ -1,8 +1,10 @@
 <div class="row">
   <div class="small-12 columns">
     <ul class="label-list">
-      <li ng-repeat="label in labels"><a class="label" ng-click="toggleLabelSelection(label.name)">{{label.name}}</a></li>
-      <li><a class="label" ng-click="resetLabelSelection()">CLEAR</a></li>
+      <li ng-repeat="label in labels">
+        <a class="label" ng-click="toggleLabelSelection(label.name)" ng-class="{active: isLabelSelected(label.name)}">{{label.name}}</a>
+      </li>
+      <li class="active"><a class="label" ng-click="resetLabelSelection()">CLEAR</a></li>
       <li><a class="label" ng-click="toggleLabelSelection('-no-labels-')">EMPTY</a></li>
     </ul>
   </div>
