@@ -10,7 +10,7 @@
 
 <div class="row">
   <div class="small-12 medium-12 columns">
-    <div class="movie2" ng-repeat="movie in movies|orderBy:'release_date':true | selectedLabels:sLabels">
+    <div class="movie2" ng-repeat="movie in movies|orderBy:'created_at':true | selectedLabels:sLabels">
       <div class="row">
         <div class="small-4 medium-2 columns">
           <img class="thumb" ng-src="http://image.tmdb.org/t/p/w154{{movie.poster_path}}">

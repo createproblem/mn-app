@@ -5,6 +5,7 @@ angular.module('mnApp', [
   'ngResource',
   'ngAnimate',
   'toaster',
+  'ngProgress',
   'mm.foundation',
   'mnApp.services',
   'mnApp.directives',
