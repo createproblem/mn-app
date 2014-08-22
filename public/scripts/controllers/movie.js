@@ -1,13 +1,15 @@
 /* jshint camelcase: false */
 'use strict';
 
-angular.module('mnApp.controllers').controller('MovieNewCtrl', ['$scope', 'Movie', 'toaster',
-  function($scope, Movie, toaster) {
+angular.module('mnApp.controllers').controller('MovieNewCtrl', ['$scope', 'Movie', 'toaster', 'progress',
+  function($scope, Movie, toaster, progress) {
     $scope.movies = [];
     $scope.search = function(isValid) {
       if (isValid) {
+        progress.register('tmdb-lookup');
         Movie.searchTmdb({query: this.query}, function(res) {
           $scope.movies = res.results;
+          progress.done('tmdb-lookup');
         });
       }
     };
@@ -24,12 +26,21 @@ angular.module('mnApp.controllers').controller('MovieNewCtrl', ['$scope', 'Movie
       });
     };
   }])
-.controller('MovieCtrl', ['$scope', 'Movie',
-  function($scope, Movie) {
-    $scope.movies = Movie.query();
+.controller('MovieCtrl', ['$scope', 'Movie', 'progress',
+  function($scope, Movie, progress) {
+    progress.register('load-movies');
+    progress.register('load-labels');
+
     $scope.labelBox = {};
-    $scope.labels = Movie.labels();
     $scope.sLabels = [];
+
+    $scope.movies = Movie.query(function(res) {
+      progress.done('load-movies');
+    });
+
+    $scope.labels = Movie.labels(function(res) {
+      progress.done('load-labels');
+    });
 
     var save = function(movie) {
       var data = $scope.labelBox[movie._id].data;
@@ -38,7 +49,10 @@ angular.module('mnApp.controllers').controller('MovieNewCtrl', ['$scope', 'Movie
       } else {
         movie.labels = $scope.labelBox[movie._id].data.split(',').map(function(name) {return {name: name};});
       }
-      movie.$update({id: movie._id});
+
+      movie.$update({id: movie._id}, function(res) {
+        $scope.labels = Movie.labels();
+      });
     };
 
     $scope.toggleLabelSelection = function(labelName) {

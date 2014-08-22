@@ -29,9 +29,13 @@
           <p class="hide-for-small-only">{{movie.overview | limitTo:200}}</p>
         </div>
         <div class="medium-3 columns hide-for-small-only">
-          <a class="button tiny secondary right" ng-click="toggleLabelBox(movie)">
-            <i ng-class="labelBox[movie._id].css" class="fa fa-tag"></i>
-          </a>
+          <ul class="button-group right">
+            <li>
+              <a class="button tiny secondary right" ng-click="toggleLabelBox(movie)">
+                <i ng-class="labelBox[movie._id].css" class="fa fa-tag"></i>
+              </a>
+            </li>
+          </ul>
         </div>
       </div>
     </div>
