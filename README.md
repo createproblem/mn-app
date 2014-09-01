@@ -14,7 +14,7 @@ Development
 
 Install grunt and bower
 ```
-npm install -g grunt bower
+npm install -g grunt-cli bower
 ```
 
 Install dependencies
