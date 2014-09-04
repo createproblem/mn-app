@@ -102,4 +102,12 @@ Movie.prototype.runUpdateMovie = function(req, res) {
   });
 };
 
+Movie.prototype.runGetMovie = function(req, res) {
+  this.model.findOne({_id: req.params.id, user: req.user}, function(err, movie) {
+    if (err) return self.errorHandler(err);
+
+    res.json(movie);
+  });
+};
+
 module.exports = new Movie(model);

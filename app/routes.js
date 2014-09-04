@@ -29,6 +29,11 @@ module.exports = function(app, passport) {
     MovieCtrl.runUpdateMovie(req, res);
   });
 
+  // Get movie
+  app.get('/movies/:id', auth, function(req, res) {
+    MovieCtrl.runGetMovie(req, res);
+  });
+
   // Get labels
   app.get('/labels', auth, function(req, res) {
     LabelCtrl.run(req, res);

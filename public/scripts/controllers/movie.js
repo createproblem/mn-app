@@ -88,7 +88,7 @@ angular.module('mnApp.controllers').controller('MovieNewCtrl', ['$scope', 'Movie
       }
     };
   }])
-.controller('MovieDetailCtrl', ['$scope', '$routeParams',
-  function($scope, $routeParams) {
-    $scope.message = $routeParams.movieId;
+.controller('MovieDetailCtrl', ['$scope', '$routeParams', 'Movie',
+  function($scope, $routeParams, Movie) {
+    $scope.movie = Movie.get({id: $routeParams.movieId});
   }]);
