@@ -87,4 +87,8 @@ angular.module('mnApp.controllers').controller('MovieNewCtrl', ['$scope', 'Movie
         save(movie);
       }
     };
+  }])
+.controller('MovieDetailCtrl', ['$scope', '$routeParams',
+  function($scope, $routeParams) {
+    $scope.message = $routeParams.movieId;
   }]);

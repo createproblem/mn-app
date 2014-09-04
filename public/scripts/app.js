@@ -43,9 +43,16 @@ angular.module('mnApp', [
         loggedin: checkLoggedin
       }
     })
-    .when('/movie/new', {
+    .when('/movies/new', {
       templateUrl: 'views/movie-new.html',
       controller: 'MovieNewCtrl',
+      resolve: {
+        loggedin: checkLoggedin
+      }
+    })
+    .when('/movies/:movieId', {
+      templateUrl: 'views/movie-detail.html',
+      controller: 'MovieDetailCtrl',
       resolve: {
         loggedin: checkLoggedin
       }
