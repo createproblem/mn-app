@@ -1,1 +1,12 @@
-<youtube code="movie.trailers[0].source"></youtube>
+<div class="row">
+  <div class="small-12 columns">
+    <h1>{{movie.title}} <small>({{movie.release_date | date:'yyyy'}})</small></h1>
+    <img class="thumb" ng-src="http://image.tmdb.org/t/p/w300{{movie.poster_path}}">
+    <p>{{movie.overview}}</p>
+    <h2>Trailers</h2>
+    <div ng-repeat="trailer in movie.trailers">
+      <youtube code="trailer.source"></youtube>
+    <!-- {{trailer.source}} -->
+    </div>
+  </div>
+</div>
