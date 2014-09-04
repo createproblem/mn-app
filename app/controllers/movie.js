@@ -103,6 +103,8 @@ Movie.prototype.runUpdateMovie = function(req, res) {
 };
 
 Movie.prototype.runGetMovie = function(req, res) {
+  var self = this;
+
   this.model.findOne({_id: req.params.id, user: req.user}, function(err, movie) {
     if (err) return self.errorHandler(err);
 

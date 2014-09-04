@@ -40,7 +40,7 @@ module.exports = function(app, passport) {
   });
 
   // tmdb search
-  app.get('/movies/search-tmdb', auth, function(req, res) {
+  app.get('/search/tmdb', auth, function(req, res) {
     MovieCtrl.runTmdbSearch(req, res);
   });
 
