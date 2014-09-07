@@ -64,4 +64,9 @@
 .youtube {
   height: rem-calc(300);
   margin-bottom: rem-calc(15);
+  iframe {
+    overflow: hidden;
+    height: 100%;
+    width: 100%;
+  }
 }
