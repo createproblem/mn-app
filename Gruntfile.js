@@ -26,7 +26,7 @@ module.exports = function(grunt) {
     wiredep: {
       target: {
         src: ['public/index.html'],
-        dependencies: true,
+        dependencies: true
       }
     },
 
